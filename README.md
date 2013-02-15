@@ -5,9 +5,10 @@ Apache log replayer Groovy script
 
 ## Requirements
 
-Groovy installed:
+Groovy installed & http-builder 0.6:
 
     sudo apt-get install groovy
+    grape install org.codehaus.groovy.modules.http-builder http-builder 0.6
 
 ## Usage
 
@@ -33,29 +34,9 @@ The output will be something like this:
   * The fourth part is the url
   * The fifth part is the exception message, if available
 
-## Troubleshooting
+## Disclaimer
 
-If you are having problems, try calling grape from the command line like so:
+This code is provided AS-IS, with no warranty (explicit or implied) and has not been vetted or tested for deployment in a production environment. Use of this code at your own risk.
 
-    grape resolve org.codehaus.groovy.modules.http-builder http-builder 0.6
-    grape install org.codehaus.groovy.modules.http-builder http-builder 0.6
+Released under Public Domain. Associated libraries carry their own individual licenses where applicable.
 
-The above commands will tell you which repository URLs grape is trying to download from if it cannot find the artifact.
-If you still having problems, you might also need to create the following file in ~/.groovy/grapeConfig.xml:
-
-    <?xml version="1.0" encoding="utf-8"?>
-    <ivysettings>
-      <settings defaultResolver="downloadGrapes" />
-      <resolvers>
-        <chain name="downloadGrapes">
-          <filesystem name="cachedGrapes">
-            <ivy pattern="${user.home}/.groovy/grapes/[organisation]/[module]/ivy-[revision].xml" />
-            <artifact pattern="${user.home}/.groovy/grapes/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]" />
-          </filesystem>
-          <ibiblio name="codehaus" root="http://repository.codehaus.org/" m2compatible="true" />
-          <ibiblio name="codehaus.snapshots" root="http://snapshots.repository.codehaus.org/" m2compatible="true" />
-          <ibiblio name="ibiblio" m2compatible="true" />
-          <ibiblio name="java.net2" root="http://download.java.net/maven/2/" m2compatible="true" />
-        </chain>
-      </resolvers>
-    </ivysettings>
