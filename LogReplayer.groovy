@@ -66,18 +66,12 @@ class Replayer {
             // Don't add to the executor queue more than maxPendingTaskCount tasks, so wait until some of them finish...
             while ((executor.taskCount - executor.completedTaskCount) >= maxPendingTaskCount) Thread.sleep(1000)
         }
-        finish()
+        // Wait for the pending tasks finish
+        while ((executor.taskCount - executor.completedTaskCount) > 0) Thread.sleep(100)
+        executor.shutdown()
     }
 
     def getCurrentTimeSeconds() { (System.currentTimeMillis()/1000) as int }
-
-    def finish() {
-        if (executor && !executor.shutdown) {
-            // Wait for the pending tasks finish
-            while ((executor.taskCount - executor.completedTaskCount) > 0) Thread.sleep(100)
-            executor.shutdown()
-        }
-    }
 
     def urlListForTheNextSecond, lastSecondToRun = -1
     private void launchUrlAt(url, long secondToRun) {
