@@ -27,10 +27,10 @@ The output will be something like this:
     [6] 00.147s 200  http://localhost:8080/web/book/9788490192054?val=orr
     [7] 00.058s 500! http://localhost:8080//location/free?ip=2.2.2.2 Internal Server Error
 
-  * The [6] means now there are 6 connections open to your servers (concurrent user)
-  * The second number (like 00.147s) means the time, in seconds, to full process the request
-  * The third number is the http code. 500! means an exception when processing the request
-  * The forth part is the url
+  * The [6] means now there are 6 connections opened against the server (concurrent users)
+  * The second number (00.147s) means the time needed by the script to process the request
+  * The third number (200, 500!) is the http code. 500! means an exception happens when processing the request
+  * The fourth part is the url
   * The fifth part is the exception message, if available
 
 ## Troubleshooting
